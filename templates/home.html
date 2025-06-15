@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Auth0 Example</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .navbar {
+      width: 100%;
+      background-color: #4f5e6e; /* Blue */
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      padding: 12px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .navbar a {
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+
+    .navbar a:hover {
+      background-color: #005bb5;
+      border-radius: 4px;
+    }
+
+    .container {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 40px;
+      margin-top: 40px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 80%;
+      max-width: 700px;
+    }
+
+    h1 {
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 18px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #125ea3;
+    }
+
+    pre {
+      text-align: left;
+      background-color: #f0f0f0;
+      padding: 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    #about {
+      display: none;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    #about h2 {
+      margin-top: 0;
+      color: #444;
+    }
+
+    #about p {
+      color: #666;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a onclick="showSection('home')">Home</a>
+    <a onclick="showSection('about')">About</a>
+  </div>
+
+  <div class="container" id="home">
+    {% if session %}
+      <!-- <h1 style="text-shadow: 1px 1px 2px gray;">Welcome {{ session.userinfo.name.split('@')[0] }}!</h1> -->
+      <h1 style="text-shadow: 1px 1px 2px gray;">Welcome {{ session.userinfo.nickname }}</h1>
+       
+      <a href="/logout"><button>Logout</button></a>
+      <div style="background-color: #f5f5f5; padding: 1em; border-radius: 10px; margin-top: 1em; width: 60%; margin-left: auto; margin-right: auto;">
+        <pre>{{ pretty }}</pre>
+      </div>
+    {% else %}
+      <h1>Welcome Guest</h1>
+      <a href="/login"><button>Login</button></a>
+    {% endif %}
+  </div>
+
+  <div class="container" id="about">
+    <h2>About This App</h2>
+    <p>This is a sample authentication app using Auth0. It demonstrates how to integrate secure login and logout features into a web app with minimal code and maximum reliability.</p>
+    <p>The application supports authenticated sessions, user profile retrieval, and displays session details once logged in.</p>
+    <p>Built with ❤️ using HTML, Python (Flask or similar), and Auth0.</p>
+  </div>
+
+  <script>
+    function showSection(section) {
+      document.getElementById('home').style.display = section === 'home' ? 'block' : 'none';
+      document.getElementById('about').style.display = section === 'about' ? 'block' : 'none';
+    }
+    showSection('home');
+  </script>
+
+</body>
+</html>
