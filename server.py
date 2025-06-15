@@ -27,7 +27,6 @@ oauth.register(
     },
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
-# Dummygame.123
 
 @app.route("/api/session")
 def get_session():
